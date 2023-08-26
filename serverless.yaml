@@ -1,0 +1,22 @@
+service: tokenizer
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  environment:
+    MONGO_URI : "mongodb://127.0.0.1:27017/test"
+
+functions:
+  token:
+    handler: src/token/controller.handler
+    events:
+      - httpApi: POST /token
+  card:
+    handler: src/card/controller.handler
+    events:
+      - httpApi: POST /card
+    
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript
